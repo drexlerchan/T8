@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Data Visualization</title>
   <link rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -20,21 +20,44 @@
       <div class="col-4">
         <div id="types-of-accommodation-chart"></div>
        </div>
+
+       <div class="col-8">
+         <div id="accomodation-price-chart"></div>
+       </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div id="neighbourhood-chart"></div>
+      </div>
     </div>
   </div>
 
   <!-- Load the library -->
   <script src="https://code.highcharts.com/highcharts.js"></script>
-  
-  <!-- Load data -->
-  <script src="data/airbnb-data.js"></script>
 
   <!-- Load types of accommodation chart -->
   <script src="charts/types-of-accommodation.js"></script>
 
+  <!-- Load accomodation price chart -->
+  <script src="charts/accomodation-price-chart.js"></script>
+
+  <!-- Load neighbourhood chart -->
+  <script src="charts/neighbourhood-chart.js"></script>
+
   <script>
-    // Create types of accommodation chart
-    makeChartForAccommodationTypes(window.airbnbAccomodationData);
+    const airbnbDataUrl = 'https://raw.githubusercontent.com/Luodina/js-data-viz/' +
+            '3rd-stage/step-4-render-neighbourhood-chart/data/airbnb-data.json';
+    fetch(airbnbDataUrl)
+      .then(response => response.json())
+      .then(accommodations => {
+        // Create types of accommodation chart
+        makeChartForAccommodationTypes(accommodations);
+        // Create accomodation prices chart
+        accomodationPriceChart(accommodations);
+        // Create neighbourhood chart
+        neighbourhoodChart(accommodations);
+      });
   </script>
 </body>
 </html>
